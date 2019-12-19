@@ -7,11 +7,20 @@ using kubectl commands
 
 ## Starting Traefik
 First apply the kubernetes resources
-`$ kubectl apply -f k8s/traefik/traefik-crd.yml`
-`$ kubectl apply -f k8s/traefik/`
+
+```bash
+$ kubectl apply -f k8s/traefik/traefik-crd.yml
+$ kubectl apply -f k8s/traefik/
+```
 
 After apply the whoami application to test
-`$ kubectl apply -f k8s/whoami/`
+
+```bash
+$ kubectl apply -f k8s/whoami/
+```
 
 For `minikube` start the kubernetes `port-forward`
-`kubectl port-forward --address 0.0.0.0 service/traefik 80:8000 8080:8080 443:4443 -n default &`
+
+```bash
+$ kubectl port-forward --address 0.0.0.0 service/traefik 80:8000 8080:8080 443:4443 -n default &
+```
