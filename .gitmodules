@@ -1,6 +1,3 @@
 [submodule "k8s/prometheus/kube-prometheus"]
 	path = k8s/prometheus/kube-prometheus
 	url = git@github.com:coreos/kube-prometheus.git
-[submodule "k8s/prometheus/kubernetes-grafana"]
-	path = k8s/prometheus/kubernetes-grafana
-	url = https://github.com/brancz/kubernetes-grafana.git
