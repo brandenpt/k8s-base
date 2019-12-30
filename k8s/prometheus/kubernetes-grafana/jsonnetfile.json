@@ -1,0 +1,14 @@
+{
+    "dependencies": [
+        {
+            "name": "grafana",
+            "source": {
+                "git": {
+                    "remote": "https://github.com/brancz/kubernetes-grafana",
+                    "subdir": "grafana"
+                }
+            },
+            "version": "master"
+        }
+    ]
+}
