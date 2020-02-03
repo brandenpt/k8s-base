@@ -11,6 +11,14 @@ $ htpasswd -c -B users admin
 $ kubectl create secret generic admin-authsecret --from-file=users
 ```
 
+## Starting Minikube
+
+`$ minikube delete && minikube start --memory=8g --cpus=4 --bootstrapper=kubeadm --extra-config=kubelet.authentication-token-webhook=true --extra-config=kubelet.authorization-mode=Webhook --extra-config=scheduler.address=0.0.0.0 --extra-config=controller-manager.address=0.0.0.0`
+
+
+`$ minikube addons disable metrics-server`
+
+
 ## Starting Traefik
 First apply the kubernetes resources
 
@@ -36,6 +44,7 @@ If you are on linux and you can bind port 80 and port 443 use the following comm
 ```
 $ sudo setcap 'cap_net_bind_service=+ep' /usr/bin/kubectl
 ```
+
 
 ## Starting Prometheus & Grafana
 
