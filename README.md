@@ -13,11 +13,9 @@ $ kubectl create secret generic admin-authsecret --from-file=users
 
 ## Starting Minikube
 
-`$ minikube delete && minikube start --memory=8g --cpus=4 --bootstrapper=kubeadm --extra-config=kubelet.authentication-token-webhook=true --extra-config=kubelet.authorization-mode=Webhook --extra-config=scheduler.address=0.0.0.0 --extra-config=controller-manager.address=0.0.0.0`
-
-
-`$ minikube addons disable metrics-server`
-
+```
+$ minikube delete && minikube start --memory=8g --cpus=4 --bootstrapper=kubeadm --extra-config=kubelet.authentication-token-webhook=true --extra-config=kubelet.authorization-mode=Webhook --extra-config=scheduler.address=0.0.0.0 --extra-config=controller-manager.address=0.0.0.0
+```
 
 ## Starting Traefik
 First apply the kubernetes resources
@@ -47,6 +45,11 @@ $ sudo setcap 'cap_net_bind_service=+ep' /usr/bin/kubectl
 
 
 ## Starting Prometheus & Grafana
+
+```
+$ minikube addons disable metrics-server
+```
+
 
 ```
 $ kubectl create -f k8s/prometheus/kube-prometheus/manifests/setup
