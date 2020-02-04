@@ -19,3 +19,4 @@
 
 # Frequent secret filenames
 users
+k8s/traefik/traefik-admin-authsecret.yml
