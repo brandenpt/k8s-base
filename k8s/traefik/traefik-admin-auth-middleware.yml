@@ -5,3 +5,4 @@ metadata:
 spec:
   basicAuth:
     secret: admin-authsecret
+    removeHeader: true
