@@ -1,0 +1,35 @@
+keycloak:
+  replicas: 1
+  image:
+    tag: 9.0.0
+  affinity: ""
+  extraInitContainers: |
+    - name: extensions
+      image: busybox
+      imagePullPolicy: IfNotPresent
+      command:
+        - sh
+      args:
+        - -c
+        - |
+          echo "Copying extensions..."
+          wget -O /deployments/keycloak-metrics-spi.jar https://github.com/aerogear/keycloak-metrics-spi/releases/download/1.0.4/keycloak-metrics-spi-1.0.4.jar
+      volumeMounts:
+        - name: deployments
+          mountPath: /deployments
+
+  extraVolumeMounts: |
+    - name: deployments
+      mountPath: /opt/jboss/keycloak/standalone/deployments
+    - name: realm-secret
+      mountPath: "/realm/"
+      readOnly: true
+
+  extraVolumes: |
+    - name: deployments
+      emptyDir: {}
+    - name: realm-secret
+      secret:
+        secretName: realm-secret
+
+  extraArgs: "-Dkeycloak.import=/realm/realm.json -Dkeycloak.migration.realmName='jhipster' -Dkeycloak.profile.feature.upload_scripts=enabled"

@@ -85,17 +85,15 @@ $ git checkout coreos/kube-prometheus/master -- manifests
 $ git commit -m "updated manifests" && git push
 ```
 
-## Create the resources
+### Create the resources
 
 ```
 $ minikube addons disable metrics-server
 ```
 
-
 ```
 $ kubectl create -f k8s/prometheus/kube-prometheus/manifests/setup
 ```
-
 
 ```
 $ kubectl create -f k8s/prometheus/kube-prometheus/manifests
@@ -103,6 +101,19 @@ $ kubectl create -f k8s/prometheus/kube-prometheus/manifests
 
 ```
 $ kubectl apply -f k8s/prometheus/ingress-routes
+```
+
+## Starting keycloak
+```
+$ kubectl create secret generic realm-secret --from-file=k8s/keycloak/realm/realm.json
+```
+
+```
+$ helm install keycloak codecentric/keycloak -f k8s/keycloak/helm/values.yml
+```
+
+```
+$ kubectl apply -f k8s/keycloak/ingress-routes
 ```
 
 ## Access
