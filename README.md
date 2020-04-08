@@ -40,7 +40,8 @@ $ minikube delete && minikube start --memory=8g --cpus=4 --bootstrapper=kubeadm 
 First apply the kubernetes resources
 
 ### Update Traefik
-In `traefik-deployment.yml` alter the image value to the most recent one and deploy.
+In `traefik-deployment.yml` alter the image value to the most recent one from https://hub.docker.com/_/traefik
+ and deploy.
 
 ```yaml
 #image: traefik:v2.1
@@ -66,7 +67,7 @@ For `minikube` start the kubernetes `port-forward`
 $ kubectl port-forward --address 0.0.0.0 service/traefik 80:8000 8080:8080 443:4443 -n default &
 ```
 
-If you are on linux and you can't bind port 80 and port 443 use the following command
+If you are on linux and you can't bind port 80 and port 443 after an kubernetes update use the following command
 
 ```
 $ sudo setcap 'cap_net_bind_service=+ep' /usr/bin/kubectl
@@ -75,14 +76,14 @@ $ sudo setcap 'cap_net_bind_service=+ep' /usr/bin/kubectl
 
 ## Starting Prometheus & Grafana
 
-### Update Manifests
-Because we use a submodule this is the process to update
+### Helm install
 
 ```
-$ cd k8s/prometheus/kube-prometheus/
-$ git fetch coreos/kube-prometheus  
-$ git checkout coreos/kube-prometheus/master -- manifests
-$ git commit -m "updated manifests" && git push
+$ helm install prometheus-operator stable/prometheus-operator
+```
+
+```
+$ kubectl apply -f k8s/prometheus/ingress-routes
 ```
 
 ### Create the resources

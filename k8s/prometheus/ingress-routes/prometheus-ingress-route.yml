@@ -10,8 +10,7 @@ spec:
     - match: Host(`prometheus.localhost`)
       kind: Rule
       services:
-        - name: prometheus-k8s
-          namespace: monitoring
+        - name: prometheus-operated
           port: 9090
       middlewares:
         - name: admin-auth
@@ -31,8 +30,7 @@ spec:
     - match: Host(`prometheus.localhost`)
       kind: Rule
       services:
-        - name: prometheus-k8s
-          namespace: monitoring
+        - name: prometheus-operated
           port: 9090
       middlewares:
         - name: https

@@ -10,8 +10,7 @@ spec:
     - match: Host(`grafana.localhost`)
       kind: Rule
       services:
-        - name: grafana
-          namespace: monitoring
+        - name: grafana-operated
           port: 3000
       middlewares:
         - name: admin-auth
@@ -31,8 +30,7 @@ spec:
     - match: Host(`grafana.localhost`)
       kind: Rule
       services:
-        - name: grafana
-          namespace: monitoring
+        - name: grafana-operated
           port: 3000
       middlewares:
         - name: https
