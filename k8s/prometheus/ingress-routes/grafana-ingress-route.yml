@@ -10,8 +10,8 @@ spec:
     - match: Host(`grafana.localhost`)
       kind: Rule
       services:
-        - name: grafana-operated
-          port: 3000
+        - name: prometheus-operator-grafana
+          port: 80
       middlewares:
         - name: admin-auth
   tls:
@@ -30,8 +30,8 @@ spec:
     - match: Host(`grafana.localhost`)
       kind: Rule
       services:
-        - name: grafana-operated
-          port: 3000
+        - name: prometheus-operator-grafana
+          port: 80
       middlewares:
         - name: https
         - name: admin-auth

@@ -1,0 +1,7 @@
+globalArguments:
+  - "--global.checknewversion"
+  - "--global.sendanonymoususage=false"
+
+additionalArguments:
+  - "--metrics.prometheus=true"
+  

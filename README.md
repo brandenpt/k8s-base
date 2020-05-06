@@ -37,21 +37,18 @@ $ minikube delete && minikube start --memory=8g --cpus=4 --bootstrapper=kubeadm 
 ```
 
 ## Starting Traefik
-First apply the kubernetes resources
+First we start the Traefik helm chart
 
 ### Update Traefik
-In `traefik-deployment.yml` alter the image value to the most recent one from https://hub.docker.com/_/traefik
- and deploy.
-
-```yaml
-#image: traefik:v2.1
-image: traefik:v2.1.3
-```
-
-### Apply
 
 ```
-$ kubectl apply -f k8s/traefik/traefik-crd.yml
+$ helm repo update
+```
+
+### Deploying
+
+```
+$ helm install traefik traefik/traefik -f k8s/traefik/helm/values.yml
 $ kubectl apply -f k8s/traefik/
 ```
 
@@ -64,7 +61,7 @@ $ kubectl apply -f k8s/whoami/
 For `minikube` start the kubernetes `port-forward`
 
 ```
-$ kubectl port-forward --address 0.0.0.0 service/traefik 80:8000 8080:8080 443:4443 -n default &
+$ kubectl port-forward --address 0.0.0.0 service/traefik 80:80 443:443 -n default &
 ```
 
 If you are on linux and you can't bind port 80 and port 443 after an kubernetes update use the following command
@@ -79,7 +76,7 @@ $ sudo setcap 'cap_net_bind_service=+ep' /usr/bin/kubectl
 ### Helm install
 
 ```
-$ helm install prometheus-operator stable/prometheus-operator
+$ helm install prometheus-operator stable/prometheus-operator -f k8s/prometheus/helm/values.yml
 ```
 
 ```
@@ -92,7 +89,7 @@ $ kubectl apply -f k8s/prometheus/ingress-routes
 $ minikube addons disable metrics-server
 ```
 
-## Starting keycloak
+## Starting keycloak TODO
 ```
 $ kubectl create secret generic realm-secret --from-file=k8s/keycloak/realm/realm.json
 ```
@@ -105,12 +102,20 @@ $ helm install keycloak codecentric/keycloak -f k8s/keycloak/helm/values.yml
 $ kubectl apply -f k8s/keycloak/ingress-routes
 ```
 
+## Consul TODO
+
+## Elasticsearch TODO
+
 ## Access
 
 ```
-http://traefik.localhost
-http://prometheus.localhost
-http://grafana.localhost
+https://traefik.localhost
+https://prometheus.localhost
+https://grafana.localhost
+https://consul.localhost
+https://keycloak.localhost
 ```
 
 Default grafana login: admin admin
+
+## Updating

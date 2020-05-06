@@ -2,11 +2,10 @@
 
 https://learn.hashicorp.com/consul/kubernetes/minikube
 
-# Install
+## Install
 
 ```
 $ cd k8s/consul/helm
-$ git clone https://github.com/hashicorp/consul-helm.git
 $ helm install -f values.yaml consul-branden ./consul-helm
 $ cd ../../..
 ```
@@ -15,7 +14,16 @@ $ cd ../../..
 $ kubectl apply -f k8s/consul/ingress-routes
 ```
 
-# Uninstall
+## Update
+
+https://github.com/hashicorp/consul-helm/releases
+
+```
+$ git config -f .gitmodules submodule.consul-helm.branch $NEW_RELEASE
+$ git submodule update --remote --merge
+```
+
+## Uninstall
 
 ```
 $ helm delete consul-branden
