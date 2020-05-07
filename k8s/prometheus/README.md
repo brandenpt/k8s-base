@@ -3,7 +3,9 @@
 https://github.com/helm/charts/tree/master/stable/prometheus-operator
 
 # Install
-
+```
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+```
 ```
 $ helm install prometheus-operator stable/prometheus-operator
 ```

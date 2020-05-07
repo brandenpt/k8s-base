@@ -5,9 +5,7 @@ https://learn.hashicorp.com/consul/kubernetes/minikube
 ## Install
 
 ```
-$ cd k8s/consul/helm
-$ helm install -f values.yaml consul-branden ./consul-helm
-$ cd ../../..
+$ helm install -f k8s/consul/helm/values.yml consul-branden ./k8s/consul/helm/consul-helm
 ```
 
 ```
