@@ -4,4 +4,3 @@ globalArguments:
 
 additionalArguments:
   - "--metrics.prometheus=true"
-  

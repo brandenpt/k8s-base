@@ -1,7 +1,10 @@
 # Choose an optional name for the datacenter
 global:
   datacenter: minidc
-
+  tls:
+    enabled: false
+    httpsOnly: false
+    
 # Enable the Consul Web UI via a NodePort
 ui:
   service:
