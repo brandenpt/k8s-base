@@ -24,14 +24,10 @@ Now enter the repository
 $ cd k8s-base
 ```
 
-And get the submodules
-```
-$ git submodule update --init --recursive
-```
+### Traefik security
 
-### Create the login secret for Traefik security
-
-Create a file in `k8s/traefik` directory with the following content:
+To normally access the Traefik dashboard we need an authentication.
+For the basic authentication, used in this project, create a file in `k8s/traefik` directory with the following content:
 
 ```yaml
 kind: Secret
@@ -105,19 +101,16 @@ $ kubectl create secret generic realm-secret --from-file=k8s/keycloak/realm/real
 After just install the keycloak chart and apply the ingress-routes.
 ```
 $ helm install keycloak codecentric/keycloak -f k8s/keycloak/helm/values.yml
-$ kubectl apply -f k8s/keycloak/ingress-routes
+$ kubectl apply -f k8s/keycloak/ingress-routes/keycloak-ingress-route.yml
 ```
 
-### Start [Consul](https://www.consul.io/docs/platform/k8s/run.html)
+**For Development** instead of using the `keycloak-ingress-route.yml` use instead:
 
 ```
-$ helm install -f k8s/consul/helm/values.yml consul-branden ./k8s/consul/helm/consul-helm
-$ kubectl apply -f k8s/consul/ingress-routes
+$ kubectl apply -f k8s/keycloak/ingress-routes/keycloak-dev-ingress-route.yml
 ```
 
-### Start [Elasticsearch](https://www.elastic.co/guide/en/cloud-on-k8s/current/index.html)
-
-__*TODO*__
+This Traefik ingress route doesn't have auth and is in simple http, for easy access from the dev application.
 
 ### Start your App
 
@@ -142,13 +135,17 @@ In your browser you can access each of the modules by inserting the following ad
 https://traefik.localhost
 https://prometheus.localhost
 https://grafana.localhost
-https://consul.localhost
 https://keycloak.localhost
 ```
 
-The browser is going show that the certificate is invalid, because this is just a local test accept it.
+The browser is going to show that the certificate is invalid, because this is just a local test accept it.
 
-After is going to ask for an username and password
+After write the username and password that you used in [Traefik security](#Traefik-security).
+
+**For Development** instead of using the `https://keycloak.localhost` use instead:
+```
+http://keycloak.localhost
+```
 
 ### To exit
 

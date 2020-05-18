@@ -1,5 +1,2 @@
-[submodule "k8s/consul/helm/consul-helm"]
-	path = k8s/consul/helm/consul-helm
-	url = https://github.com/hashicorp/consul-helm.git
 [submodule "consul-helm"]
 	branch = v0.20.1
