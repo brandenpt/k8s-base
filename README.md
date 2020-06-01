@@ -1,7 +1,6 @@
 # k8s-base
 
-Kubernetes base configuration with Traefik, Prometheus &amp; Grafana, Consul, Elasticsearch and Keycloak
-for Branden Apps
+Kubernetes base configuration with Traefik and Prometheus &amp; Grafana for Branden Apps
 
 ## Minikube Quick-start
 
@@ -85,38 +84,6 @@ $ helm install prometheus-operator stable/prometheus-operator -f k8s/prometheus/
 $ kubectl apply -f k8s/prometheus/ingress-routes
 ```
 
-### Start [Keycloak](https://github.com/codecentric/helm-charts/tree/master/charts/keycloak)
-
-If you don't have the codecentric helm charts repo:
-```
-$ helm repo add codecentric https://codecentric.github.io/helm-charts
-```
-
-Add your realm `json` configuration to `k8s/keycloak/realm/` with the filename `realm.json` and then generate the
-kubernetes secret.
-```
-$ kubectl create secret generic realm-secret --from-file=k8s/keycloak/realm/realm.json
-```
-
-After just install the keycloak chart and apply the ingress-routes.
-```
-$ helm install keycloak codecentric/keycloak -f k8s/keycloak/helm/values.yml
-$ kubectl apply -f k8s/keycloak/ingress-routes/keycloak-ingress-route.yml
-```
-
-**For Development** instead of using the `keycloak-ingress-route.yml` use instead:
-
-```
-$ kubectl apply -f k8s/keycloak/ingress-routes/keycloak-dev-ingress-route.yml
-```
-
-This Traefik ingress route doesn't have auth and is in simple http, for easy access from the dev application.
-
-To retrieve the initial user password run:
-```
-$ kubectl get secret --namespace default keycloak-http -o jsonpath="{.data.password}" | base64 --decode; echo
-```
-
 ### Start your App
 
 __*TODO*__
@@ -140,17 +107,11 @@ In your browser you can access each of the modules by inserting the following ad
 https://traefik.localhost
 https://prometheus.localhost
 https://grafana.localhost
-https://keycloak.localhost
 ```
 
 The browser is going to show that the certificate is invalid, because this is just a local test accept it.
 
 After write the username and password that you used in [Traefik security](#Traefik-security).
-
-**For Development** instead of using the `https://keycloak.localhost` use instead:
-```
-http://keycloak.localhost
-```
 
 ### To exit
 
