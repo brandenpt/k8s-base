@@ -112,6 +112,11 @@ $ kubectl apply -f k8s/keycloak/ingress-routes/keycloak-dev-ingress-route.yml
 
 This Traefik ingress route doesn't have auth and is in simple http, for easy access from the dev application.
 
+To retrieve the initial user password run:
+```
+$ kubectl get secret --namespace default keycloak-http -o jsonpath="{.data.password}" | base64 --decode; echo
+```
+
 ### Start your App
 
 __*TODO*__
